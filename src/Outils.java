@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -101,8 +102,17 @@ public class Outils extends JPanel implements ActionListener{
 			{
 				fenetre.removeNewtonCourbe();
 			}
-			
 		}
 	}
+	
+	public void paint (Graphics g) {
+	    super.paint(g);
+	    setBounds(0,400,600,115);
+		cinqPointsCheck.setBounds(0, 0, 200, 30);
+		onzePointsCheck.setBounds(0, 30, 200, 30);
+		vingtEtUnPointsCheck.setBounds(0, 60, 200, 30);
+		newtonCheck.setBounds(200, 0, 200, 30);
+		TchebytchevCheck.setBounds(200, 30, 200, 30);
+	 }
 	
 }
