@@ -12,26 +12,27 @@ public class Newton {
 		for(int i = 0 ; i < nbPoint ; i++)
 		{
 			valeur[i][0] = points[1][i];
-			System.out.println("valeur[i][0] - "+ valeur[i][0]);
+			
+			//System.out.println("valeur[i][0] - "+ valeur[i][0]);
 		} 
 		
-		System.out.println(" ************************************** ");
+		//System.out.println(" ************************************** ");
 		
 		for(int j = 1 ; j < nbPoint ; j++)
 		{
 			for(int i = 0 ; i < nbPoint - j ; i++)
 			{
-				System.out.println("i - " + i);
-				System.out.println("j - " + j);
+				/*System.out.println("i - " + i);
+				System.out.println("j - " + j);*/
 				valeur[i][j] = (valeur[i+1][j-1] - valeur[i][j-1])/(points[0][j+i] - points[0][i]);
-				System.out.println("valeur[i][j-1]  - "+ valeur[i+1][j]);
+				/*System.out.println("valeur[i][j-1]  - "+ valeur[i+1][j]);
 				System.out.println("valeur[i-1][j-1] - "+ valeur[i][j]);
 				System.out.println("points[0][i-1]  - "+ points[0][i+1]);
-				System.out.println(" points[0][i-j] - "+  points[0][i]);
+				System.out.println(" points[0][i-j] - "+  points[0][i]);*/
 			}
 		}
 		
-		System.out.println(" ==================================== ");
+		//System.out.println(" ==================================== ");
 		
 		for(int i = 0 ; i < nbPoint ; i++)
 		{
