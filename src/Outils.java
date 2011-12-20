@@ -40,58 +40,26 @@ public class Outils extends JPanel implements ActionListener{
 	public Outils (FenetreGraphe _fenetre,int x, int y, int width, int height)
 	{
 		setBounds(x,y,width,height);
-		//setBackground(Color.BLUE);
 		
 		fenetre = _fenetre;
 		
 		cinqPointsCheck = new JCheckBox("5 points");
-		cinqPointsCheck.setBounds(0, 0, 150, 30);
-		
 		onzePointsCheck = new JCheckBox("11 points");
-		onzePointsCheck.setBounds(0, 30, 150, 30);
-		
 		vingtEtUnPointsCheck = new JCheckBox("21 points");
-		vingtEtUnPointsCheck.setBounds(0, 60, 150, 30);
-		
 		newtonCheck = new JCheckBox("Newton");
-		newtonCheck.setBounds(150, 0, 150, 30);
-		
 		TchebycheffCheck = new JCheckBox("Tchebycheff");
-		TchebycheffCheck.setBounds(150, 30, 150, 30);
-		
 		persoCheck = new JCheckBox("Points Perso");
-		persoCheck.setBounds(300, 0, 300, 30);
-		
 		xLabel = new JLabel("x :");
-		xLabel.setBounds(320, 30, 20, 30);
-		
 		yLabel = new JLabel("y :");
-		yLabel.setBounds(420, 30, 20, 30);
-		
 		pointsLabel = new JLabel("points :");
-		pointsLabel.setBounds(320, 60, 40, 30);
-		
 		xField = new NumericTextField();
-		xField.setBounds(340, 30, 80, 30);
-		
 		yField = new NumericTextField();
-		yField.setBounds(440, 30, 80, 30);
-		
 		pointsArea = new JTextArea();
-		//pointsArea.setBounds(340,65,160,65);
 		pointsArea.setEditable(false);
-		
 		scrollPane = new JScrollPane(pointsArea);
-		scrollPane.setBounds(375,65,140,55);
-		
 		ajoutPointBtn = new JButton("Ajouter");
-		ajoutPointBtn.setBounds(520,30,80,30);
-		
 		supPointsBtn = new JButton("Vider");
-		supPointsBtn.setBounds(520,90,80,30);
-		
 		validerBtn = new JButton("Valider");
-		validerBtn.setBounds(520,60,80,30);
 	
 		cinqPointsCheck.addActionListener(this);
 		onzePointsCheck.addActionListener(this);
@@ -250,7 +218,7 @@ public class Outils extends JPanel implements ActionListener{
 	
 	public void paint (Graphics g) {
 	    super.paint(g);
-	    setBounds(0,400,600,150);
+	    setBounds(0,400,610,150);
 		cinqPointsCheck.setBounds(0, 0, 150, 30);
 		onzePointsCheck.setBounds(0, 30, 150, 30);
 		vingtEtUnPointsCheck.setBounds(0, 60, 150, 30);
@@ -262,10 +230,10 @@ public class Outils extends JPanel implements ActionListener{
 		scrollPane.setBounds(375,65,140,55);
 		xLabel.setBounds(320, 30, 20, 30);
 		yLabel.setBounds(420, 30, 20, 30);
-		ajoutPointBtn.setBounds(520,30,80,30);
-		supPointsBtn.setBounds(520,90,80,30);
+		ajoutPointBtn.setBounds(525,35,75,20);
+		supPointsBtn.setBounds(525,95,75,20);
 		pointsLabel.setBounds(320, 60, 50, 30);
-		validerBtn.setBounds(520,60,80,30);
+		validerBtn.setBounds(525,65,75,20);
 	 }
 	
 }
