@@ -6,7 +6,10 @@ public class FenetreGraphe extends JFrame
 	protected Graphe graphe;
 	protected Courbe courbeInitiale;
 	protected Courbe newtonCourbe;
+	protected Courbe persoCourbe;
+	protected Courbe tchebycheffCourbe;
 	protected Newton newton;
+	protected Tchebycheff tchebycheff;
 	protected double points[][];
 	
 	public FenetreGraphe(int width, int height)
@@ -16,13 +19,17 @@ public class FenetreGraphe extends JFrame
 		setVisible(true);
 		
 		newton = new Newton();
+		tchebycheff = new Tchebycheff();
 		
-		Outils outils = new Outils(this,0,height-115,width,115);
+		Outils outils = new Outils(this,0,height-150,width,150);
 		add(outils);
 		
-		graphe = new Graphe(0,0,width,height - 115);
+		graphe = new Graphe(0,0,width,height - 150);
 		
 		courbeInitiale = new Courbe("Initial");
+		newtonCourbe = new Courbe("Newton");
+		persoCourbe = new Courbe("Perso");
+		tchebycheffCourbe = new Courbe("Tchebycheff");
 		
 		double values[][] =  new double[2][101];
 		points =  new double[2][21];
@@ -65,7 +72,6 @@ public class FenetreGraphe extends JFrame
 	
 	public void removeNewtonCourbe()
 	{
-		System.out.println("2");
 		graphe.removeCourbe(newtonCourbe);
 		removeGraphe();
 		addGraphe(graphe);
@@ -77,7 +83,6 @@ public class FenetreGraphe extends JFrame
 		graphe.removeCourbe(newtonCourbe);
 		
 		double newtonPoints[][] = new double[2][nbPoint];
-		newtonCourbe = new Courbe("Newton");
 		
 		int j = 0;
 		for(int i = 0 ; i < points[0].length; i++)
@@ -96,6 +101,60 @@ public class FenetreGraphe extends JFrame
 		removeGraphe();
 		addGraphe(graphe);
 		
+	}
+	
+	public void removePersoCourbe()
+	{
+		graphe.removeCourbe(persoCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	
+	public void addPersoCourbe(double points[][])
+	{
+		graphe.removeCourbe(persoCourbe);
+		persoCourbe.setValues(newton.Calculer(points));
+		graphe.addCourbe(persoCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	
+	public void removeTchebycheffCourbe()
+	{
+		graphe.removeCourbe(tchebycheffCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	
+	public void addTchebycheffCourbe(int nbPoints)
+	{
+		graphe.removeCourbe(tchebycheffCourbe);
+		double pointsTche[] = tchebycheff.Calculer(nbPoints);
+		double values[][] = new double[2][nbPoints];
+		
+		for( int i = 0 ; i < pointsTche.length; i++)
+		{
+			double x = pointsTche[i];
+			
+			if(x < 0.0)
+			{
+				values[0][i] = x;
+				values[1][i] = Math.exp(-Math.pow(x, 2));
+			}
+			else
+			{
+				values[0][i] = x;
+				values[1][i] = Math.cos(x);
+			}
+			
+			System.out.println("points " + i + " : " + x + " ; " + values[1][i]);
+			
+		}
+		
+		tchebycheffCourbe.setValues(newton.Calculer(values));
+		graphe.addCourbe(tchebycheffCourbe);
+		removeGraphe();
+		addGraphe(graphe);
 	}
 	
 	public void removeGraphe()
