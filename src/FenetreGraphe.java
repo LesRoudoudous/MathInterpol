@@ -10,8 +10,11 @@ public class FenetreGraphe extends JFrame
 	protected Courbe persoCourbe;
 	protected Courbe tchebycheffCourbe;
 	protected Courbe erreurTchebycheffCourbe;
+	protected Courbe splineCourbe;
+	protected Courbe erreurSplineCourbe;
 	protected Newton newton;
 	protected Tchebycheff tchebycheff;
+	protected SplineCubique spline;
 	protected double points[][];
 	
 	public FenetreGraphe(int width, int height)
@@ -22,6 +25,7 @@ public class FenetreGraphe extends JFrame
 		
 		newton = new Newton();
 		tchebycheff = new Tchebycheff();
+		spline = new SplineCubique();
 		
 		Outils outils = new Outils(this,0,height-150,width,150);
 		add(outils);
@@ -32,8 +36,10 @@ public class FenetreGraphe extends JFrame
 		newtonCourbe = new Courbe("Newton");
 		persoCourbe = new Courbe("Perso");
 		tchebycheffCourbe = new Courbe("Tchebycheff");
+		splineCourbe = new Courbe("Spline");
 		erreurNewtonCourbe = new Courbe("Erreur N");
 		erreurTchebycheffCourbe = new Courbe("Erreur T");
+		erreurSplineCourbe = new Courbe("Erreur S");
 		
 		double values[][] =  new double[2][101];
 		points =  new double[2][21];
@@ -166,6 +172,41 @@ public class FenetreGraphe extends JFrame
 		erreurTchebycheffCourbe.setValues(newton.erreur(courbeInitiale.getValues(), tchebycheffCourbe.getValues()));
 		graphe.addCourbe(tchebycheffCourbe);
 		graphe.addCourbe(erreurTchebycheffCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	
+	public void removeSplineCourbe()
+	{
+		graphe.removeCourbe(erreurSplineCourbe);
+		graphe.removeCourbe(splineCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	
+	public void addSplineCourbe(int nbPoints)
+	{
+		graphe.removeCourbe(erreurSplineCourbe);
+		graphe.removeCourbe(splineCourbe);
+		
+		double splinePoints[][] = new double[2][nbPoints];
+		
+		int j = 0;
+		for(int i = 0 ; i < points[0].length; i++)
+		{
+			if(i%(20/(nbPoints-1)) == 0)
+			{
+				splinePoints[0][j] = points[0][i];
+				splinePoints[1][j] = points[1][i];
+				//System.out.println("points "+ i + " : [" + splinePoints[0][j] +";" + splinePoints[1][j] + "]");
+				j++;
+			}
+		}
+		
+		splineCourbe.setValues(spline.Calculer(splinePoints));
+		erreurSplineCourbe.setValues(newton.erreur(courbeInitiale.getValues(), splineCourbe.getValues()));
+		graphe.addCourbe(splineCourbe);
+		graphe.addCourbe(erreurSplineCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 	}
