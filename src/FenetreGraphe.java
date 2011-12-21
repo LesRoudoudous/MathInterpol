@@ -6,8 +6,10 @@ public class FenetreGraphe extends JFrame
 	protected Graphe graphe;
 	protected Courbe courbeInitiale;
 	protected Courbe newtonCourbe;
+	protected Courbe erreurNewtonCourbe;
 	protected Courbe persoCourbe;
 	protected Courbe tchebycheffCourbe;
+	protected Courbe erreurTchebycheffCourbe;
 	protected Newton newton;
 	protected Tchebycheff tchebycheff;
 	protected double points[][];
@@ -30,6 +32,8 @@ public class FenetreGraphe extends JFrame
 		newtonCourbe = new Courbe("Newton");
 		persoCourbe = new Courbe("Perso");
 		tchebycheffCourbe = new Courbe("Tchebycheff");
+		erreurNewtonCourbe = new Courbe("Erreur N");
+		erreurTchebycheffCourbe = new Courbe("Erreur T");
 		
 		double values[][] =  new double[2][101];
 		points =  new double[2][21];
@@ -61,7 +65,7 @@ public class FenetreGraphe extends JFrame
 		
 		courbeInitiale.setValues(values);
 		
-		 
+        
 		//courbe2.setValues(MonNewton.Calculer(points));
 		
 		graphe.addCourbe(courbeInitiale);
@@ -73,6 +77,7 @@ public class FenetreGraphe extends JFrame
 	public void removeNewtonCourbe()
 	{
 		graphe.removeCourbe(newtonCourbe);
+		graphe.removeCourbe(erreurNewtonCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 	}
@@ -81,6 +86,7 @@ public class FenetreGraphe extends JFrame
 	{
 		
 		graphe.removeCourbe(newtonCourbe);
+		graphe.removeCourbe(erreurNewtonCourbe);
 		
 		double newtonPoints[][] = new double[2][nbPoint];
 		
@@ -97,7 +103,9 @@ public class FenetreGraphe extends JFrame
 		}
 		
 		newtonCourbe.setValues(newton.Calculer(newtonPoints));
+		erreurNewtonCourbe.setValues(newton.erreur(courbeInitiale.getValues(), newtonCourbe.getValues()));
 		graphe.addCourbe(newtonCourbe);
+		graphe.addCourbe(erreurNewtonCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 		
@@ -122,6 +130,7 @@ public class FenetreGraphe extends JFrame
 	public void removeTchebycheffCourbe()
 	{
 		graphe.removeCourbe(tchebycheffCourbe);
+		graphe.removeCourbe(erreurTchebycheffCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 	}
@@ -129,6 +138,8 @@ public class FenetreGraphe extends JFrame
 	public void addTchebycheffCourbe(int nbPoints)
 	{
 		graphe.removeCourbe(tchebycheffCourbe);
+		graphe.removeCourbe(erreurTchebycheffCourbe);
+		
 		double pointsTche[] = tchebycheff.Calculer(nbPoints);
 		double values[][] = new double[2][nbPoints];
 		
@@ -152,7 +163,9 @@ public class FenetreGraphe extends JFrame
 		}
 		
 		tchebycheffCourbe.setValues(newton.Calculer(values));
+		erreurTchebycheffCourbe.setValues(newton.erreur(courbeInitiale.getValues(), tchebycheffCourbe.getValues()));
 		graphe.addCourbe(tchebycheffCourbe);
+		graphe.addCourbe(erreurTchebycheffCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 	}

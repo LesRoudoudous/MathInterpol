@@ -1,6 +1,6 @@
 
 public class Newton {
-
+    
 	public double[][] Calculer(double points[][])
 	{
 		int nbPoint = points[0].length;
@@ -23,12 +23,12 @@ public class Newton {
 			for(int i = 0 ; i < nbPoint - j ; i++)
 			{
 				/*System.out.println("i - " + i);
-				System.out.println("j - " + j);*/
+                 System.out.println("j - " + j);*/
 				valeur[i][j] = (valeur[i+1][j-1] - valeur[i][j-1])/(points[0][j+i] - points[0][i]);
 				/*System.out.println("valeur[i][j-1]  - "+ valeur[i+1][j]);
-				System.out.println("valeur[i-1][j-1] - "+ valeur[i][j]);
-				System.out.println("points[0][i-1]  - "+ points[0][i+1]);
-				System.out.println(" points[0][i-j] - "+  points[0][i]);*/
+                 System.out.println("valeur[i-1][j-1] - "+ valeur[i][j]);
+                 System.out.println("points[0][i-1]  - "+ points[0][i+1]);
+                 System.out.println(" points[0][i-j] - "+  points[0][i]);*/
 			}
 		}
 		
@@ -41,6 +41,7 @@ public class Newton {
 		}
 		
 		double pointsPoly[][] =  new double[2][101];
+		
 		
 		Double x = -5.0;
 		for( int i = 0 ; x <= 5.0; i++,x+=0.1)
@@ -57,10 +58,24 @@ public class Newton {
 				}
 				Somme += val;
 			}
-			pointsPoly[1][i] = Somme;		
+			pointsPoly[1][i] = Somme;	
 		}
 		
 		return pointsPoly;
+	}
+	
+	public double[][] erreur(double pointsOrigine[][], double pointsInterpol[][])
+	{
+		double erreur[][] =  new double[2][101];
+		
+		Double x = -5.0;
+		for( int i = 0 ; x <= 5.0; i++,x+=0.1)
+		{
+			erreur[0][i] = x;
+			erreur[1][i] = pointsOrigine[1][i] - pointsInterpol[1][i];;
+		}
+		
+		return erreur;
 	}
 	
 }
