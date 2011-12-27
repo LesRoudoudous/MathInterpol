@@ -48,7 +48,7 @@ public class Graphe {
 			data.addSeries(c.getName(), c.getValues());
 		}
 		
-		JFreeChart chart=ChartFactory.createXYLineChart("XYLineChart", "x", "y", data, PlotOrientation.VERTICAL, true, false, false);
+		JFreeChart chart=ChartFactory.createXYLineChart("Interpolation", "x", "y", data, PlotOrientation.VERTICAL, true, false, false);
 		graphePanel = new ChartPanel(chart);
 		graphePanel.setBounds(x,y,width,height);
 	}

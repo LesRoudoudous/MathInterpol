@@ -5,6 +5,7 @@ public class FenetreGraphe extends JFrame
 {
 	protected Graphe graphe;
 	protected Courbe courbeInitiale;
+	
 	protected Courbe newtonCourbe;
 	protected Courbe erreurNewtonCourbe;
 	protected Courbe persoCourbe;
@@ -12,6 +13,7 @@ public class FenetreGraphe extends JFrame
 	protected Courbe erreurTchebycheffCourbe;
 	protected Courbe splineCourbe;
 	protected Courbe erreurSplineCourbe;
+	
 	protected Newton newton;
 	protected Tchebycheff tchebycheff;
 	protected SplineCubique spline;
@@ -32,6 +34,8 @@ public class FenetreGraphe extends JFrame
 		
 		graphe = new Graphe(0,0,width,height - 150);
 		
+		courbeInitiale = new Courbe("Initial");
+
 		courbeInitiale = new Courbe("Initial");
 		newtonCourbe = new Courbe("Newton");
 		persoCourbe = new Courbe("Perso");
@@ -83,16 +87,56 @@ public class FenetreGraphe extends JFrame
 	public void removeNewtonCourbe()
 	{
 		graphe.removeCourbe(newtonCourbe);
-		graphe.removeCourbe(erreurNewtonCourbe);
+		//graphe.removeCourbe(erreurNewtonCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 	}
 	
+	public void removeErreurNewtonCourbe()
+	{
+		graphe.removeCourbe(erreurNewtonCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	public void removePersoCourbe()
+	{
+		graphe.removeCourbe(persoCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	public void removeTchebycheffCourbe()
+	{
+		graphe.removeCourbe(tchebycheffCourbe);
+	//	graphe.removeCourbe(erreurTchebycheffCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	public void removeErreurTchebycheffCourbe()
+	{
+		graphe.removeCourbe(erreurTchebycheffCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	public void removeSplineCourbe()
+	{
+	//	graphe.removeCourbe(erreurSplineCourbe);
+		graphe.removeCourbe(splineCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	public void removeErreurSplineCourbe()
+	{
+		graphe.removeCourbe(erreurSplineCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	
+		
 	public void addNewtonCourbe(int nbPoint)
 	{
 		
 		graphe.removeCourbe(newtonCourbe);
-		graphe.removeCourbe(erreurNewtonCourbe);
+		//graphe.removeCourbe(erreurNewtonCourbe);
 		
 		double newtonPoints[][] = new double[2][nbPoint];
 		
@@ -109,20 +153,24 @@ public class FenetreGraphe extends JFrame
 		}
 		
 		newtonCourbe.setValues(newton.Calculer(newtonPoints));
-		erreurNewtonCourbe.setValues(newton.erreur(courbeInitiale.getValues(), newtonCourbe.getValues()));
 		graphe.addCourbe(newtonCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+		
+	}
+
+	
+	public void addErreurNewtonCourbe()
+	{
+		graphe.removeCourbe(erreurNewtonCourbe);
+		
+		erreurNewtonCourbe.setValues(newton.erreur(courbeInitiale.getValues(), newtonCourbe.getValues()));
 		graphe.addCourbe(erreurNewtonCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 		
 	}
-	
-	public void removePersoCourbe()
-	{
-		graphe.removeCourbe(persoCourbe);
-		removeGraphe();
-		addGraphe(graphe);
-	}
+
 	
 	public void addPersoCourbe(double points[][])
 	{
@@ -133,18 +181,12 @@ public class FenetreGraphe extends JFrame
 		addGraphe(graphe);
 	}
 	
-	public void removeTchebycheffCourbe()
-	{
-		graphe.removeCourbe(tchebycheffCourbe);
-		graphe.removeCourbe(erreurTchebycheffCourbe);
-		removeGraphe();
-		addGraphe(graphe);
-	}
+
 	
 	public void addTchebycheffCourbe(int nbPoints)
 	{
 		graphe.removeCourbe(tchebycheffCourbe);
-		graphe.removeCourbe(erreurTchebycheffCourbe);
+		//graphe.removeCourbe(erreurTchebycheffCourbe);
 		
 		double pointsTche[] = tchebycheff.Calculer(nbPoints);
 		double values[][] = new double[2][nbPoints];
@@ -169,24 +211,29 @@ public class FenetreGraphe extends JFrame
 		}
 		
 		tchebycheffCourbe.setValues(newton.Calculer(values));
-		erreurTchebycheffCourbe.setValues(newton.erreur(courbeInitiale.getValues(), tchebycheffCourbe.getValues()));
+		//erreurTchebycheffCourbe.setValues(newton.erreur(courbeInitiale.getValues(), tchebycheffCourbe.getValues()));
 		graphe.addCourbe(tchebycheffCourbe);
+		//graphe.addCourbe(erreurTchebycheffCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+	
+
+	
+	public void addErreurTchebycheffCourbe()
+	{
+		graphe.removeCourbe(erreurTchebycheffCourbe);
+		
+		erreurTchebycheffCourbe.setValues(newton.erreur(courbeInitiale.getValues(), tchebycheffCourbe.getValues()));
 		graphe.addCourbe(erreurTchebycheffCourbe);
 		removeGraphe();
 		addGraphe(graphe);
 	}
 	
-	public void removeSplineCourbe()
-	{
-		graphe.removeCourbe(erreurSplineCourbe);
-		graphe.removeCourbe(splineCourbe);
-		removeGraphe();
-		addGraphe(graphe);
-	}
-	
+
 	public void addSplineCourbe(int nbPoints)
 	{
-		graphe.removeCourbe(erreurSplineCourbe);
+		//graphe.removeCourbe(erreurSplineCourbe);
 		graphe.removeCourbe(splineCourbe);
 		
 		double splinePoints[][] = new double[2][nbPoints];
@@ -204,8 +251,19 @@ public class FenetreGraphe extends JFrame
 		}
 		
 		splineCourbe.setValues(spline.Calculer(splinePoints));
-		erreurSplineCourbe.setValues(newton.erreur(courbeInitiale.getValues(), splineCourbe.getValues()));
+		//erreurSplineCourbe.setValues(newton.erreur(courbeInitiale.getValues(), splineCourbe.getValues()));
 		graphe.addCourbe(splineCourbe);
+		//graphe.addCourbe(erreurSplineCourbe);
+		removeGraphe();
+		addGraphe(graphe);
+	}
+
+	
+	public void addErreurSplineCourbe()
+	{
+		graphe.removeCourbe(erreurSplineCourbe);
+	
+		erreurSplineCourbe.setValues(newton.erreur(courbeInitiale.getValues(), splineCourbe.getValues()));
 		graphe.addCourbe(erreurSplineCourbe);
 		removeGraphe();
 		addGraphe(graphe);

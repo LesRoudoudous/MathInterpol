@@ -23,6 +23,7 @@ public class Outils extends JPanel implements ActionListener{
 	protected JCheckBox newtonCheck;
 	protected JCheckBox TchebycheffCheck;
 	protected JCheckBox splineCheck;
+	protected JCheckBox erreurCheck;
 	
 	protected JCheckBox persoCheck;
 	protected JLabel xLabel;
@@ -38,6 +39,7 @@ public class Outils extends JPanel implements ActionListener{
 	
 	protected FenetreGraphe fenetre;
 	
+
 	public Outils (FenetreGraphe _fenetre,int x, int y, int width, int height)
 	{
 		setBounds(x,y,width,height);
@@ -52,6 +54,7 @@ public class Outils extends JPanel implements ActionListener{
 		newtonCheck = new JCheckBox("Newton");
 		TchebycheffCheck = new JCheckBox("Tchebycheff");
 		splineCheck = new JCheckBox("Spline");
+		erreurCheck = new JCheckBox("Erreur");
 		
 		persoCheck = new JCheckBox("Points Perso");
 		xLabel = new JLabel("x :");
@@ -72,16 +75,19 @@ public class Outils extends JPanel implements ActionListener{
 		newtonCheck.addActionListener(this);
 		TchebycheffCheck.addActionListener(this);
 		persoCheck.addActionListener(this);
+		erreurCheck.addActionListener(this);
 		ajoutPointBtn.addActionListener(this);
 		supPointsBtn.addActionListener(this);
 		validerBtn.addActionListener(this);
 		splineCheck.addActionListener(this);
 		
+
 		add(cinqPointsCheck);
 		add(onzePointsCheck);
 		add(vingtEtUnPointsCheck);
 		add(newtonCheck);
 		add(TchebycheffCheck);
+		add(erreurCheck);
 		add(persoCheck);
 		add(xField);
 		add(yField);
@@ -112,6 +118,16 @@ public class Outils extends JPanel implements ActionListener{
 						fenetre.addTchebycheffCourbe(5);
 					if(splineCheck.isSelected())
 						fenetre.addSplineCourbe(5);
+					if(erreurCheck.isSelected())
+					{
+						if(newtonCheck.isSelected())
+							fenetre.addErreurNewtonCourbe();
+						if(TchebycheffCheck.isSelected())
+							fenetre.addErreurTchebycheffCourbe();
+						if(splineCheck.isSelected())
+							fenetre.addErreurSplineCourbe();
+					}
+						
 				}
 				else if(checkBox == onzePointsCheck)
 				{
@@ -123,6 +139,15 @@ public class Outils extends JPanel implements ActionListener{
 						fenetre.addTchebycheffCourbe(11);
 					if(splineCheck.isSelected())
 						fenetre.addSplineCourbe(11);
+					if(erreurCheck.isSelected())
+					{
+						if(newtonCheck.isSelected())
+							fenetre.addErreurNewtonCourbe();
+						if(TchebycheffCheck.isSelected())
+							fenetre.addErreurTchebycheffCourbe();
+						if(splineCheck.isSelected())
+							fenetre.addErreurSplineCourbe();
+					}
 				}
 				else if(checkBox == vingtEtUnPointsCheck)
 				{
@@ -134,6 +159,15 @@ public class Outils extends JPanel implements ActionListener{
 						fenetre.addTchebycheffCourbe(21);
 					if(splineCheck.isSelected())
 						fenetre.addSplineCourbe(21);
+					if(erreurCheck.isSelected())
+					{
+						if(newtonCheck.isSelected())
+							fenetre.addErreurNewtonCourbe();
+						if(TchebycheffCheck.isSelected())
+							fenetre.addErreurTchebycheffCourbe();
+						if(splineCheck.isSelected())
+							fenetre.addErreurSplineCourbe();
+					}
 				}
 				else if(checkBox == newtonCheck)
 				{
@@ -143,6 +177,9 @@ public class Outils extends JPanel implements ActionListener{
 						fenetre.addNewtonCourbe(11);
 					else if(vingtEtUnPointsCheck.isSelected())
 						fenetre.addNewtonCourbe(21);
+					
+					if(erreurCheck.isSelected())
+						fenetre.addErreurNewtonCourbe();
 				}
 				else if(checkBox == TchebycheffCheck)
 				{
@@ -152,6 +189,9 @@ public class Outils extends JPanel implements ActionListener{
 						fenetre.addTchebycheffCourbe(11);
 					else if(vingtEtUnPointsCheck.isSelected())
 						fenetre.addTchebycheffCourbe(21);
+					
+					if(erreurCheck.isSelected())
+						fenetre.addErreurTchebycheffCourbe();
 				}
 				else if(checkBox == splineCheck)
 				{
@@ -162,6 +202,19 @@ public class Outils extends JPanel implements ActionListener{
 					else if(vingtEtUnPointsCheck.isSelected())
 						fenetre.addSplineCourbe(21);
 					
+					if(erreurCheck.isSelected())
+						fenetre.addErreurSplineCourbe();
+					
+				}
+				else if(checkBox == erreurCheck)
+				{
+								
+					if(newtonCheck.isSelected())
+						fenetre.addErreurNewtonCourbe();
+					if(TchebycheffCheck.isSelected())
+						fenetre.addErreurTchebycheffCourbe();
+					if(splineCheck.isSelected())
+						fenetre.addErreurSplineCourbe();
 				}
 				else if(checkBox == persoCheck)
 				{
@@ -172,6 +225,7 @@ public class Outils extends JPanel implements ActionListener{
 			{
 				if(checkBox == newtonCheck)
 				{
+					fenetre.removeErreurNewtonCourbe();
 					fenetre.removeNewtonCourbe();
 				}
 				else if(checkBox == persoCheck)
@@ -181,22 +235,40 @@ public class Outils extends JPanel implements ActionListener{
 				else if (checkBox == TchebycheffCheck)
 				{
 					fenetre.removeTchebycheffCourbe();
+					fenetre.removeErreurTchebycheffCourbe();
+				}
+				else if (checkBox == erreurCheck)
+				{
+					fenetre.removeErreurNewtonCourbe();
+					fenetre.removeErreurTchebycheffCourbe();
+					fenetre.removeErreurSplineCourbe();
 				}
 				else if (checkBox == splineCheck)
 				{
 					fenetre.removeSplineCourbe();
+					fenetre.removeErreurSplineCourbe();
 				}
 				else if(newtonCheck.isSelected())
 				{
 					fenetre.removeNewtonCourbe();
+					fenetre.removeErreurNewtonCourbe();
 				}
 				else if(TchebycheffCheck.isSelected())
 				{
 					fenetre.removeTchebycheffCourbe();
+					fenetre.removeErreurTchebycheffCourbe();
 				}
 				else if(splineCheck.isSelected())
 				{
 					fenetre.removeSplineCourbe();
+					fenetre.removeErreurSplineCourbe();
+				}
+				else if(erreurCheck.isSelected())
+				{
+					fenetre.removeErreurNewtonCourbe();
+					fenetre.removeErreurTchebycheffCourbe();
+					fenetre.removeErreurSplineCourbe();
+					
 				}
 			}
 		}
@@ -256,6 +328,7 @@ public class Outils extends JPanel implements ActionListener{
 		newtonCheck.setBounds(150, 0, 150, 30);
 		TchebycheffCheck.setBounds(150, 30, 150, 30);
 		splineCheck.setBounds(150,60,150,30);
+		erreurCheck.setBounds(150,90,150,30);
 		persoCheck.setBounds(300, 0, 150, 30);
 		xField.setBounds(340, 30, 80, 30);
 		yField.setBounds(440, 30, 80, 30);
